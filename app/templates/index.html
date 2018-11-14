@@ -1,0 +1,28 @@
+<!-- index.html-->
+
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="jumbotron">
+  <h1>Reamortization Calculator</h1>
+  <p class="lead">Input loan details</p>
+</div>
+<div class="panel">
+  <div class="panel-body">
+    <div class="form-inline">
+      <form action="/" method="POST">
+        Remaining Loan Amount: <br>
+        <input type="number" name="amount" step=".01"><br>
+        Interest: <br>
+        <input type="number" name="interest" step=".01">%<br>
+        Months Remaining: <br>
+        <input type="number" name="months"><br>
+        Next Cycle Start: <br>
+        <input type="date" name="cycle"><br>
+        <br></br>
+        <input type="submit" name=form value="calculate">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
