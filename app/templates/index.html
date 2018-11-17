@@ -7,22 +7,50 @@
   <h1>Reamortization Calculator</h1>
   <p class="lead">Input loan details</p>
 </div>
+
 <div class="panel">
   <div class="panel-body">
     <div class="form-inline">
       <form action="/" method="POST">
-        Remaining Loan Amount: <br>
-        <input type="number" name="amount" step=".01"><br>
-        Interest: <br>
-        <input type="number" name="interest" step=".01">%<br>
-        Months Remaining: <br>
-        <input type="number" name="months"><br>
-        Next Cycle Start: <br>
-        <input type="date" name="cycle"><br>
+        Currency: <br>
+        <select class="form-control" name="currency">
+          <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
+          <option value="EUR">EUR</option>
+        </select>
+        <br>
+        <br>Remaining Loan Amount:<br>
+        <input class="input-lg" type="number" name="amount" step=".01"><br>        
+        <br>Interest: <br>
+        <input class="input-lg" type="number" name="interest" step=".01">%<br>
+        <br>Months Remaining: <br>
+        <input class="input-lg" type="number" name="months"><br>
+        <br>Next Cycle Start: <br>
+        <input class="input-lg" type="date" name="cycle"><br>
         <br></br>
-        <input type="submit" name=form value="calculate">
+        <input class="btn-lg btn-success" type="submit" name=form value="Calculate">
       </form>
     </div>
+  </div>
+  <div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    {% for message in messages %}
+        {% if "Error" not in message[1]: %}
+            <div class="alert alert-success">
+            <strong>Success! </strong> {{ message[1] }}
+            </div>
+        {% endif %}
+
+        {% if "Error" in message[1]: %}
+            <div class="alert alert-warning">
+            {{ message[1] }}
+            </div>
+        {% endif %}
+    {% endfor %}
+        {% endif %}
+    {% endwith %}
   </div>
 </div>
 {% endblock %}
