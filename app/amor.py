@@ -11,12 +11,12 @@ def simple_pmt(rate, nper, pv, fv=0, when='end'):
     return -pmt
 
 
-def amortize(principle, interest_rate, years, type, addl_principle=0, annual_payments=12, start_date = dt.date.today()):
+def amortize(principle, interest_rate, months_left, type, currency, addl_principle=0, annual_payments=12, start_date = dt.date.today()):
     
     if type ==  'compound':
-        pmt = -round(np.pmt(interest_rate/annual_payments, years*annual_payments, principle),2)
+        pmt = -round(np.pmt(interest_rate/annual_payments, months_left, principle),2)
     if type == 'simple':
-        pmt = -round(simple_pmt(interest_rate/annual_payments, years*annual_payments, principle),2)
+        pmt = -round(simple_pmt(interest_rate/annual_payments, months_left, principle),2)
     
 
     #initialize the variables to keep track of the periods and running balances
@@ -43,30 +43,14 @@ def amortize(principle, interest_rate, years, type, addl_principle=0, annual_pay
 
         yield OrderedDict([('Month', start_date),
                             ('Period', p),
-                            ('Begin Balance',beg_balance),
+                            ('Opening Balance',beg_balance),
                             ('Payment', pmt),
                             ('Principle', principle),
                             ('Interest',interest),
-                            ('Additional_Payment',addl_principle),
-                            ('End Balance',end_balance)])
+                            ('Additional Payment',addl_principle),
+                            ('Closing Balance',end_balance)])
 
         #Increment the counter, balance and date
         p += 1
         start_date += relativedelta(months=1)
         beg_balance = end_balance
-
-schedule1 = pd.DataFrame(amortize(50000, 0.04, 20, 'simple', addl_principle=200, start_date=dt.date(2016, 1,1)))
-schedule2 = pd.DataFrame(amortize(50000, 0.04, 20, 'compound', addl_principle=200, start_date=dt.date(2016, 1,1)))
-#print(schedule1,schedule2)
-#schedule.to_csv('schedule.csv')
-schedule2.plot(y=['Interest','Principle'], x='Month')
-plt.pyplot.savefig('test2.png')
-schedule1.plot(y=['Interest','Principle'], x='Month')
-plt.pyplot.savefig('test.png')
-
-schedule1.plot(y=['End Balance'], x='Month')
-plt.pyplot.savefig('test3.png')
-
-spmt = simple_pmt(rate =0.04/12,nper=30*12,pv=50000)
-cpmt = np.pmt(0.04/12,30*12,50000)
-print(spmt,cpmt)

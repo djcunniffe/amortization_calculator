@@ -10,7 +10,7 @@
 
 <div class="panel">
   <div class="panel-body">
-    <div class="form-inline">
+    <div class="form group form-inline">
       <form action="/" method="POST">
         Currency: <br>
         <select class="form-control" name="currency">
@@ -20,15 +20,16 @@
         </select>
         <br>
         <br>Remaining Loan Amount:<br>
-        <input class="input-lg" type="number" name="amount" step=".01"><br>        
+        <input class="input-lg" type="number" name="amount" step=".01" required><br>        
         <br>Interest: <br>
-        <input class="input-lg" type="number" name="interest" step=".01">%<br>
+        <input class="input-lg" type="number" name="interest" step=".01" required>%<br>
         <br>Months Remaining: <br>
-        <input class="input-lg" type="number" name="months"><br>
+        <input class="input-lg" type="number" name="months" required><br>
         <br>Next Cycle Start: <br>
-        <input class="input-lg" type="date" name="cycle"><br>
+        <input class="input-lg" type="date" name="cycle" required><br>
         <br></br>
-        <input class="btn-lg btn-success" type="submit" name=form value="Calculate">
+        <input class="btn-lg btn-success" type="submit" name=submit value="Calculate">
+        <input class="btn-lg btn-success" type="submit" name=submit value="Generate Schedule">
       </form>
     </div>
   </div>
