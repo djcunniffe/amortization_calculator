@@ -12,35 +12,18 @@ import datetime as dt
 def index():
     return render_template('index.html')
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-#@app.route('/', methods=['GET','POST'])
 def calculate(amount,interest,months,currency):
     """
     Take inputs, caluclate and display the new monthly payment
     """
-    #amount = float(request.form['amount'])
-    #interest = float(request.form['interest'])/100
-    #months = int(request.form['months'])
-    #currency = request.form['currency']
-
     pmt = -round(np.pmt(interest/12, months, amount),2)
     flash('The New Payment is: %s %s' % (currency, '{:0,.2f}'.format(pmt)))
     return render_template('index.html')
 
-#@app.route('/schedule', methods=['GET','POST'])
 def schedule(amount,interest,date,months,currency):
     """
     Take the inputs and output the amortization schedule
     """
-    #amount = float(request.form['amount'])
-    #interest = float(request.form['interest'])/100
-    #date = request.form['cycle']
-    #months = int(request.form['months'])
-    #currency = request.form['currency']
-
     schedule_df = pd.DataFrame(amor.amortize(amount,interest,months,"compound",currency,start_date=dt.datetime.strptime(date,"%Y-%m-%d").date()))
 
     return render_template('schedule.html', data=schedule_df.to_html(index=False,classes='table table-hover table-responsive'))
@@ -53,6 +36,7 @@ def display():
     date = request.form['cycle']
     months = int(request.form['months'])
     currency = request.form['currency']
+
     if request.method == 'POST':
         if request.form['submit'] == 'Calculate':
             return calculate(amount,interest,months,currency)

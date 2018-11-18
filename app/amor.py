@@ -54,19 +54,3 @@ def amortize(principle, interest_rate, months_left, type, currency, addl_princip
         p += 1
         start_date += relativedelta(months=1)
         beg_balance = end_balance
-
-#schedule1 = pd.DataFrame(amortize(50000, 0.04, 20, 'simple', addl_principle=200, start_date=dt.date(2016, 1,1)))
-#schedule2 = pd.DataFrame(amortize(50000, 0.04, 20, 'compound', addl_principle=200, start_date=dt.date(2016, 1,1)))
-#print(schedule1,schedule2)
-#schedule.to_csv('schedule.csv')
-#schedule2.plot(y=['Interest','Principle'], x='Month')
-#plt.pyplot.savefig('test2.png')
-#schedule1.plot(y=['Interest','Principle'], x='Month')
-#plt.pyplot.savefig('test.png')
-
-#schedule1.plot(y=['Closing Balance'], x='Month')
-#plt.pyplot.savefig('test3.png')
-
-#spmt = simple_pmt(rate =0.04/12,nper=30*12,pv=50000)
-#cpmt = np.pmt(0.04/12,30*12,50000)
-#print(spmt,cpmt)
