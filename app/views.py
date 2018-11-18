@@ -36,11 +36,14 @@ def display():
     date = request.form['cycle']
     months = int(request.form['months'])
     currency = request.form['currency']
-
-    if request.method == 'POST':
-        if request.form['submit'] == 'Calculate':
-            return calculate(amount,interest,months,currency)
-        elif request.form['submit'] == 'Generate Schedule':
-            return schedule(amount,interest,date,months,currency)
-    elif request.method == 'GET':
+    try:
+        if request.method == 'POST':
+            if request.form['submit'] == 'Calculate':
+                return calculate(amount,interest,months,currency)
+            elif request.form['submit'] == 'Generate Schedule':
+                return schedule(amount,interest,date,months,currency)
+        elif request.method == 'GET':
+            return render_template('index.html')
+    except:
+        flash('ERROR: Ensure form is filled in correctly')
         return render_template('index.html')
